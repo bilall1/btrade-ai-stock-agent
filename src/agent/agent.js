@@ -38,6 +38,36 @@ const MAX_ITERATIONS = 10;
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
+/**
+ * Convert technical API errors into user-friendly messages
+ */
+function formatUserFriendlyError(error) {
+  const errorMessage = error.message || '';
+  
+  // Rate limit errors
+  if (errorMessage.includes('429') || errorMessage.includes('quota') || errorMessage.includes('rate limit')) {
+    return '⏰ **Free tier limit reached!** Our AI agent has handled many requests today. Please try again in a few minutes, or come back later. Thank you for understanding!';
+  }
+  
+  // Authentication errors
+  if (errorMessage.includes('401') || errorMessage.includes('403') || errorMessage.includes('API key')) {
+    return '🔑 **Connection issue.** We\'re having trouble connecting to our AI service. Please try again shortly.';
+  }
+  
+  // Network/timeout errors
+  if (errorMessage.includes('timeout') || errorMessage.includes('ECONNREFUSED') || errorMessage.includes('fetch')) {
+    return '🌐 **Network issue.** Unable to reach our AI service. Please check your connection and try again.';
+  }
+  
+  // Model not found
+  if (errorMessage.includes('404') || errorMessage.includes('not found')) {
+    return '⚙️ **Service temporarily unavailable.** Our AI model is updating. Please try again in a few moments.';
+  }
+  
+  // Generic fallback
+  return '❌ **Oops!** Something went wrong. Please try your question again. If the issue persists, try refreshing the page.';
+}
+
 // Map tool names to actual functions
 const toolExecutors = {
   get_stock_quote: async (args) => await getStockQuote(args.symbol),
@@ -165,7 +195,9 @@ export async function runAgent(userMessage, conversationHistory = []) {
       
       console.log(`\n✅ [API RESPONSE #1] Received from Gemini`);
     } catch (error) {
-      throw new Error(`Gemini API error: ${error.message}. Make sure your GEMINI_API_KEY environment variable is set correctly.`);
+      console.error('❌ Gemini API error:', error.message);
+      const userMessage = formatUserFriendlyError(error);
+      throw new Error(userMessage);
     }
 
     for (let i = 0; i < MAX_ITERATIONS; i++) {
@@ -245,7 +277,9 @@ export async function runAgent(userMessage, conversationHistory = []) {
         
         console.log(`✅ [API RESPONSE #${i + 2}] Received from Gemini`);
       } catch (error) {
-        throw new Error(`Gemini API error on tool response: ${error.message}`);
+        console.error('❌ Gemini API error on tool response:', error.message);
+        const userMessage = formatUserFriendlyError(error);
+        throw new Error(userMessage);
       }
     }
 

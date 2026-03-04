@@ -164,10 +164,8 @@ async function sendMessage() {
 
   } catch (err) {
     loadingEl.remove();
-    appendAgentMessage(
-      `**Error:** ${err.message}\n\nMake sure Ollama is running (\`ollama serve\`) and the model is available.`,
-      []
-    );
+    // Display user-friendly error message from backend
+    appendAgentMessage(err.message || '❌ **Oops!** Something went wrong. Please try again.', []);
     setStatus('error', 'Error occurred');
   }
 
