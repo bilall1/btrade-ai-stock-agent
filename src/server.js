@@ -164,7 +164,7 @@ const resolvers = {
   Query: {
     health: () => ({
       status: 'ok',
-      model: 'gemini-2.0-flash',
+      model: 'gemini-2.5-flash',
       timestamp: new Date().toISOString(),
     }),
     stockQuote: async (_, { symbol }) => await getStockQuote(symbol),
@@ -251,7 +251,7 @@ app.listen(PORT, () => {
   ║     🚀 BTrade AI Stock Agent                 ║
   ║     App:     http://localhost:${PORT}            ║
   ║     GraphQL: http://localhost:${PORT}/graphql    ║
-  ║     Model:   gemini-2.0-flash via Google AI  ║
+  ║     Model:   gemini-2.5-flash via Google AI  ║
   ╚══════════════════════════════════════════════╝
   `);
 });
