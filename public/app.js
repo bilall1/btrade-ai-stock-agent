@@ -87,7 +87,7 @@ async function checkHealth() {
   try {
     const data = await gqlQuery(HEALTH_QUERY);
     if (data.health.status === 'ok') {
-      setStatus('connected', `${data.health.model} ready`);
+      setStatus('connected', 'Agent Ready');
     }
   } catch (err) {
     setStatus('error', 'Cannot reach server');
