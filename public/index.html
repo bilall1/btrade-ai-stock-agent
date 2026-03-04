@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BTrade — AI-powered stock screener agent. Ask natural language questions about stocks and get instant analysis." />
+  <title>BTrade — AI Stock Screener Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header id="header">
+      <div class="header-left">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 20L8 12L12 16L18 6L24 14" stroke="url(#grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18 6L24 14" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="24" cy="14" r="2.5" fill="#22c55e"/>
+              <defs>
+                <linearGradient id="grad" x1="4" y1="20" x2="24" y2="6">
+                  <stop stop-color="#6366f1"/>
+                  <stop offset="1" stop-color="#22c55e"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="logo-text">BTrade</span>
+          <span class="logo-badge">AI Agent</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="status-indicator" id="statusIndicator">
+          <span class="status-dot"></span>
+          <span class="status-text">Gemini Connected</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Chat Area -->
+    <main id="chatArea">
+      <!-- Welcome screen -->
+      <div id="welcomeScreen" class="welcome-screen">
+        <div class="welcome-icon">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <rect width="64" height="64" rx="16" fill="url(#wgrad)" fill-opacity="0.15"/>
+            <path d="M16 44L22 28L30 36L40 18L52 32" stroke="url(#wgrad2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="52" cy="32" r="4" fill="#22c55e" fill-opacity="0.8"/>
+            <defs>
+              <linearGradient id="wgrad" x1="0" y1="64" x2="64" y2="0">
+                <stop stop-color="#6366f1"/><stop offset="1" stop-color="#22c55e"/>
+              </linearGradient>
+              <linearGradient id="wgrad2" x1="16" y1="44" x2="52" y2="18">
+                <stop stop-color="#818cf8"/><stop offset="1" stop-color="#22c55e"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="welcome-title">What would you like to know?</h1>
+        <p class="welcome-subtitle">I can analyze stocks, screen markets, and explain price movements — all powered by AI.</p>
+        <div class="suggestion-chips">
+          <button class="chip" data-query="What's the current price of AAPL?">
+            <span class="chip-icon">📊</span> Price of AAPL
+          </button>
+          <button class="chip" data-query="Find me undervalued tech stocks under $100">
+            <span class="chip-icon">🔍</span> Screen tech stocks
+          </button>
+          <button class="chip" data-query="Compare NVDA and AMD — which is the better buy?">
+            <span class="chip-icon">⚖️</span> Compare NVDA vs AMD
+          </button>
+          <button class="chip" data-query="Why is TSLA's stock moving today?">
+            <span class="chip-icon">📈</span> Why is TSLA moving?
+          </button>
+          <button class="chip" data-query="Show me the top performing energy stocks">
+            <span class="chip-icon">⛽</span> Top energy stocks
+          </button>
+          <button class="chip" data-query="Give me a detailed analysis of MSFT">
+            <span class="chip-icon">🏢</span> Analyze MSFT
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div id="messagesContainer" class="messages-container hidden"></div>
+    </main>
+
+    <!-- Input Bar -->
+    <footer id="inputBar">
+      <div class="input-wrapper">
+        <textarea
+          id="messageInput"
+          placeholder="Ask about any stock, market trend, or screening criteria..."
+          rows="1"
+          autocomplete="off"
+        ></textarea>
+        <button id="sendBtn" class="send-btn" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <p class="input-hint">BTrade uses Gemini 2.0 Flash + Yahoo Finance. Not financial advice.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

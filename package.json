@@ -1,0 +1,19 @@
+{
+  "name": "btrade",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI Stock Screener Agent powered by Google Gemini and Yahoo Finance",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.4.0",
+    "@google/generative-ai": "^0.21.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "graphql": "^16.13.0"
+  }
+}
